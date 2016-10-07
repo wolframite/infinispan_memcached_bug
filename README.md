@@ -137,3 +137,43 @@ END
 ```
 
 Of the 4987 keys, only 4960 found their way in the cache
+
+## sysdig
+
+Running sysdig (`sudo sysdig -s 2000 -A -c echo_fds fd.port=11211`) shows that java tries to read 2B at a time it's not supposed to:
+
+```
+[[34m------ Write 130B to  [[34m 127.0.0.1:59062->127.0.0.1:11211 (php)
+
+set MY_product_maybelline-maybelline-color-show-lips-[#203-cherry-on-top]-pink-623871.html_en 0 0 26
+test value 1475833492.6105
+
+[[31m------ Read 128B from  [[31m 127.0.0.1:59062->127.0.0.1:11211 (java)
+
+set MY_product_maybelline-maybelline-color-show-lips-[#203-cherry-on-top]-pink-623871.html_en 0 0 26
+test value 1475833492.6105
+[[34m------ Write 8B to  [[34m 127.0.0.1:59062->127.0.0.1:11211 (java)
+
+STORED
+
+[[31m------ Read 8B from  [[31m 127.0.0.1:59062->127.0.0.1:11211 (php)
+
+STORED
+
+[[31m------ Read 2B from  [[31m 127.0.0.1:59062->127.0.0.1:11211 (java)
+
+
+
+[[34m------ Write 128B to  [[34m 127.0.0.1:59062->127.0.0.1:11211 (php)
+
+set MY_product_cotton-silk-luffy-luffy-selendang-damia-wide-shawl-red-orange-765145.html_en 0 0 26
+test value 1475833492.6105
+
+[[34m------ Write 7B to  [[34m 127.0.0.1:59062->127.0.0.1:11211 (java)
+
+ERROR
+
+[[31m------ Read 7B from  [[31m 127.0.0.1:59062->127.0.0.1:11211 (php)
+
+ERROR
+```
