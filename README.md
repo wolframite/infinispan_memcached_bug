@@ -90,3 +90,50 @@ Output:
 	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:137)
 	at java.lang.Thread.run(Thread.java:745)
 ```
+
+## PHP
+
+The PHP version causes the same effect:
+
+```
+stats
+STAT pid 0
+STAT uptime 13
+STAT uptime 13
+STAT time 1475832256
+STAT version 8.2.4.Final
+STAT pointer_size 0
+STAT rusage_user 0
+STAT rusage_system 0
+STAT curr_items 4960
+STAT total_items 4987
+STAT bytes 0
+STAT curr_connections 0
+STAT total_connections 0
+STAT connection_structures 0
+STAT cmd_get 0
+STAT cmd_set 4987
+STAT get_hits 0
+STAT get_misses 0
+STAT delete_misses 0
+STAT delete_hits 0
+STAT incr_misses 0
+STAT incr_hits 0
+STAT decr_misses 0
+STAT decr_hits 0
+STAT cas_misses 0
+STAT cas_hits 0
+STAT cas_badval 0
+STAT auth_cmds 0
+STAT auth_errors 0
+STAT evictions 0
+STAT bytes_read 442481
+STAT bytes_written 40085
+STAT limit_maxbytes 0
+STAT threads 0
+STAT conn_yields 0
+STAT reclaimed 0
+END
+```
+
+Of the 4987 keys, only 4960 found their way in the cache
